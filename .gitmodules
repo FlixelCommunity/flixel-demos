@@ -1,0 +1,7 @@
+[submodule "external/flixel"]
+	path = external/flixel
+	url = git@github.com:FlixelCommunity/flixel.git
+	branch = dev
+[submodule "external/Genome2D-Core"]
+	path = external/Genome2D-Core
+	url = git@github.com:pshtif/Genome2D-Core.git
