@@ -15,6 +15,7 @@ package
 		private var batteries :FlxGroup;		// list of batteries
 		
 		private var smokes :FlxGroup;			// list of smoke particles
+		private var jets :FlxGroup;				// list of jet particles
 		
 		private var batteryTimer :Number;		// a counter to control the addition of batteries to the screen.
 		
@@ -33,6 +34,7 @@ package
 			astronauts = new FlxGroup();
 			batteries = new FlxGroup();
 			smokes = new FlxGroup();
+			jets = new FlxGroup();
 
 			// Create the obstacles, adding each one to the "obstacles" group.
 			for (i = 0; i < Constants.MAX_OBSTACLES; i++) {
@@ -52,10 +54,14 @@ package
 				batteries.add(c);
 			}
 			
-			
 			// Create the smokes, adding each one to the "smokes" group.
 			for (i = 0; i < Constants.MAX_SMOKES; i++) {
 				smokes.add(new Smoke());
+			}
+			
+			// Create the jets, adding each one to the "jets" group.
+			for (i = 0; i < Constants.MAX_JETS; i++) {
+				jets.add(new Jet());
 			}
 
 			batteryTimer = Constants.BATTERY_ADD_INTERVAL;
@@ -67,6 +73,7 @@ package
 			add(astronauts);
 			add(batteries);
 			add(smokes);
+			add(jets);
 		}
 		
 		/**
@@ -115,5 +122,6 @@ package
 		
 		// Getters
 		public function get smokePool():FlxGroup { return smokes; }
+		public function get jetPool():FlxGroup { return jets; }
 	}
 }

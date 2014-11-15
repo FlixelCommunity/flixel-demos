@@ -13,7 +13,7 @@ package
 		private var ASTRO_PNG :Class;
 		
 		public var collectedBatteries :int; // counts the amount of batteries this astronaut collected.
-		private var smokeCounter :Number; 	// Controls the emission interval between one smoke particle and another
+		private var emitCounter :Number; 	// Controls the emission interval between one smoke particle and another
 		
 		public function Astronaut() 
 		{
@@ -27,22 +27,34 @@ package
 			play("running");
 			
 			// Create a force pushing the astronaut down in the Y axis
-			acceleration.y = 40;
+			acceleration.y = 60;
 			maxVelocity.x = Constants.SCREEN_MAX_VELOCITY;
 			
 			collectedBatteries = 0;
-			smokeCounter = 0;
+			emitCounter = 0;
 		}
 
-		private function releaseSmoke():void {
+		private function emitSmoke():void {
 			var smoke :Smoke;
 			
-			if (smokeCounter > 0) return;
+			if (emitCounter > 0) return;
 			
 			smoke = (FlxG.state as PlayState).smokePool.getFirstAvailable() as Smoke;
 			
 			if (smoke != null) {
-				smoke.reset(x - 3, y + FlxG.random.float(0, 5));
+				smoke.reset(x - 5, y + FlxG.random.float(0, 5));
+			}
+		}
+		
+		private function emitJetFire():void {
+			var jet :Jet;
+			
+			if (emitCounter > 0) return;
+			
+			jet = (FlxG.state as PlayState).jetPool.getFirstAvailable() as Jet;
+			
+			if (jet != null) {
+				jet.reset(x, y + 1);
 			}
 		}
 		
@@ -50,20 +62,16 @@ package
 		{
 			super.update();
 			
-			smokeCounter -= FlxG.elapsed;
+			emitCounter -= FlxG.elapsed;
 						
 			if (FlxG.keys.Z) {
-				velocity.y = -10;
-				releaseSmoke();
+				velocity.y = -20;
+				emitJetFire();
+				emitSmoke();
 			}
 			
-			if (FlxG.keys.X) {
-				velocity.y = -50;
-				releaseSmoke();
-			}
-			
-			if (smokeCounter <= 0) {
-				smokeCounter = 0.15;
+			if (emitCounter <= 0) {
+				emitCounter = 0.15;
 			}
 		}
 	}

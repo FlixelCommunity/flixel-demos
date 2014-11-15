@@ -12,6 +12,7 @@ package
 		public static const MAX_OBSTACLES :uint = 6;
 		public static const MAX_BATTERIES :uint = 15;
 		public static const MAX_SMOKES :uint = 100;
+		public static const MAX_JETS :uint = 20;
 		
 		public static const BATTERY_ADD_INTERVAL :Number = 1; // time, in seconds, that a new battery will be added to the screen.
 		
