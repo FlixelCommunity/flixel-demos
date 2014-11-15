@@ -14,6 +14,8 @@ package
 		private var astronauts :FlxGroup;		// list of astronauts
 		private var batteries :FlxGroup;		// list of batteries
 		
+		private var smokes :FlxGroup;			// list of smoke particles
+		
 		private var batteryTimer :Number;		// a counter to control the addition of batteries to the screen.
 		
 		/**
@@ -25,11 +27,12 @@ package
 		{
 			var i:uint;
 			
-			// Initialize the group of obstacles, astronauts and batteries.
+			// Initialize the group of obstacles, astronauts, batteries and smokes.
 			// They will be empty until something is added using add().
 			obstacles = new FlxGroup();
 			astronauts = new FlxGroup();
 			batteries = new FlxGroup();
+			smokes = new FlxGroup();
 
 			// Create the obstacles, adding each one to the "obstacles" group.
 			for (i = 0; i < Constants.MAX_OBSTACLES; i++) {
@@ -48,15 +51,22 @@ package
 				var c:Battery = new Battery();
 				batteries.add(c);
 			}
+			
+			
+			// Create the smokes, adding each one to the "smokes" group.
+			for (i = 0; i < Constants.MAX_SMOKES; i++) {
+				smokes.add(new Smoke());
+			}
 
 			batteryTimer = Constants.BATTERY_ADD_INTERVAL;
 			
-			// Add both groups obstacles and astronauts to the screen.
+			// Add all groups to the screen.
 			// When Flixel finds a group in the display list, it will render
 			// all its elements like they were added to the screen separately.
 			add(obstacles);
 			add(astronauts);
 			add(batteries);
+			add(smokes);
 		}
 		
 		/**
@@ -102,5 +112,8 @@ package
 				batteryTimer = Constants.BATTERY_ADD_INTERVAL;
 			}
 		}
+		
+		// Getters
+		public function get smokePool():FlxGroup { return smokes; }
 	}
 }
