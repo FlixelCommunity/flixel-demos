@@ -1,28 +1,32 @@
 package  
 {
 	import flixel.*;
+	import flixel.tile.FlxTileblock;
 	
 	/**
 	 * Represents the obstacles the astronauts have to overcome while running.
 	 * 
 	 * @author Fernando Bevilacqua
 	 */
-	public class Obstacle extends FlxSprite
+	public class Obstacle extends FlxTileblock
 	{
-		[Embed(source="../assets/tiles.png")]
-		private var TILES_PNG:Class;
+		[Embed(source="../assets/crate2.png")]
+		private var CRATE2_PNG:Class;
 		
 		public function Obstacle(posX :Number, posY :Number) 
 		{
-			super(posX, posY);
+			super(posX, posY, 50, 10);
 			
 			// Load graphics to fill the obstacle.
-			loadGraphic(TILES_PNG, true, false, 80, 20);
+			loadTiles(CRATE2_PNG);
 			
 			// Make obstacle don't move after a collision test. That way
 			// the astronaut will not push the obstacle down when they touch each other.
 			immovable = true;
 			
+			// Make obstacle move along the screen.
+			moves = true;
+			active = true;
 			maxVelocity.x = Constants.SCREEN_MAX_VELOCITY;
 			acceleration.x = -Constants.SCREEN_ACCELERATION;
 		}
