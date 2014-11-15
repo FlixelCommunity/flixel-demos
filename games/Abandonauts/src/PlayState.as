@@ -13,6 +13,7 @@ package
 		private var obstacles :FlxGroup; 		// list of obstacles
 		private var astronauts :FlxGroup;		// list of astronauts
 		private var batteries :FlxGroup;		// list of batteries
+		private var background :Background;
 		
 		private var smokes :FlxGroup;			// list of smoke particles
 		private var jets :FlxGroup;				// list of jet particles
@@ -65,6 +66,11 @@ package
 			}
 
 			batteryTimer = Constants.BATTERY_ADD_INTERVAL;
+			background = new Background();
+			
+			// Add the background first, so all other elements added
+			// will appear in front of it.
+			add(background);
 			
 			// Add all groups to the screen.
 			// When Flixel finds a group in the display list, it will render

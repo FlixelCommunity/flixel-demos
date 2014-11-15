@@ -10,15 +10,15 @@ package
 	 */
 	public class Obstacle extends FlxTileblock
 	{
-		[Embed(source="../assets/crate2.png")]
-		private var CRATE2_PNG:Class;
+		[Embed(source="../assets/obstacle.png")]
+		private var OBSTACLE_PNG:Class;
 		
 		public function Obstacle(posX :Number, posY :Number) 
 		{
-			super(posX, posY, 50, 10);
+			super(posX, posY, 50, 25);
 			
 			// Load graphics to fill the obstacle.
-			loadTiles(CRATE2_PNG);
+			loadTiles(OBSTACLE_PNG);
 			
 			// Make obstacle don't move after a collision test. That way
 			// the astronaut will not push the obstacle down when they touch each other.
@@ -34,8 +34,6 @@ package
 		private function spawn():void {
 			x = FlxG.random.float(FlxG.width, FlxG.width + 100);
 			y = FlxG.random.float(FlxG.height * 0.1, FlxG.height * 0.8);
-			
-			frame = FlxG.random.integer(0, 5);
 		}
 		
 		override public function update():void 
