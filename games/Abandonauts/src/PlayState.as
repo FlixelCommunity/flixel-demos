@@ -10,12 +10,40 @@ package
 	 */
 	public class PlayState extends FlxState
 	{
+		private var obstacles :FlxGroup; 		// list of obstacles
+		private var astronauts :FlxGroup;		// list of astronauts
 		
+		/**
+		 * This method is called by Flixel to initialize the state.
+		 * It's here that you should instantiate all your game elements and
+		 * add them to the screen.
+		 */
 		override public function create():void 
 		{
-			super.create();
+			var i:uint;
 			
-			add(new FlxText(0, 0, 200, "Hello world!"));
+			// Initialize the group of obstacles and astronauts.
+			// They will be empty until something is added using add().
+			obstacles = new FlxGroup();
+			astronauts = new FlxGroup();
+
+			// Create the obstacles, adding each one to the "obstacles" group.
+			for (i = 0; i < Constants.MAX_OBSTACLES; i++) {
+				var b:Obstacle = new Obstacle(i * 100, FlxG.height / 2);
+				obstacles.add(b);
+			}
+			
+			// Create the austronauts, adding each one to the "astronauts" group.
+			for (i = 0; i < Constants.MAX_ASTRONAUTS; i++) {
+				var a:Astronaut = new Astronaut();
+				astronauts.add(a);
+			}
+
+			// Add both groups obstacles and astronauts to the screen.
+			// When Flixel finds a group in the display list, it will render
+			// all its elements like they were added to the screen separately.
+			add(obstacles);
+			add(astronauts);
 		}
 	}
 }
