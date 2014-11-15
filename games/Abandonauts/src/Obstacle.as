@@ -13,7 +13,7 @@ package
 		public function Obstacle(posX :Number, posY :Number) 
 		{
 			super(posX, posY);
-			makeGraphic(100, 100, 0xff00ff00);
+			makeGraphic(100, 50, 0xff00ff00);
 			
 			// Make obstacle don't move after a collision test. That way
 			// the astronaut will not push the obstacle down when they touch each other.
@@ -25,7 +25,7 @@ package
 		
 		private function spawn():void {
 			x = FlxG.width - 2;
-			y = FlxG.random.float(FlxG.height / 2 - 40, FlxG.height / 2 + 40);
+			y = FlxG.random.float(FlxG.height * 0.1, FlxG.height * 0.8);
 		}
 		
 		override public function update():void 
