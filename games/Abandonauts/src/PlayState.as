@@ -45,5 +45,18 @@ package
 			add(obstacles);
 			add(astronauts);
 		}
+		
+		/**
+		 * This method is called by Flixel every game update. Usually the game logic
+		 * (what collides with what, etc) is placed here.
+		 */
+		override public function update():void 
+		{
+			// Call Flixel original update method, otherwise everything will stop working.
+			super.update();
+			
+			// Make astronauts and obstacles collide, so they will not move through each other.
+			FlxG.collide(astronauts, obstacles);
+		}
 	}
 }
