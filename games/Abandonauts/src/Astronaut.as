@@ -16,9 +16,10 @@ package
 		{
 			super(FlxG.width * 0.2, 10);
 			
-			makeGraphic(20, 20, 0xffff0000);
+			// Load the graphics to fill the astronaut.
 			loadGraphic(ASTRO_PNG, true, false, 10, 10);
 			
+			// Create an animation named "running" composed of frames 0 to 8, played at 5 FPS.
 			addAnimation("running", [0, 1, 2, 3, 4, 5, 6, 7, 8], 5);
 			play("running");
 			

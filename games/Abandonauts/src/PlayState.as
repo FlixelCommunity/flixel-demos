@@ -29,7 +29,7 @@ package
 
 			// Create the obstacles, adding each one to the "obstacles" group.
 			for (i = 0; i < Constants.MAX_OBSTACLES; i++) {
-				var b:Obstacle = new Obstacle(i * 100, FlxG.height / 2);
+				var b:Obstacle = new Obstacle(i * 80, FlxG.height / 2);
 				obstacles.add(b);
 			}
 			
