@@ -12,6 +12,8 @@ package
 		[Embed(source="../assets/astro.png")]
 		private var ASTRO_PNG :Class;
 		
+		public var collectedBatteries :int; // counts the amount of batteries this astronaut collected.
+		
 		public function Astronaut() 
 		{
 			super(FlxG.width * 0.2, 10);
@@ -23,10 +25,11 @@ package
 			addAnimation("running", [0, 1, 2, 3, 4, 5, 6, 7, 8], 5);
 			play("running");
 			
-			// Create a force pushing the astronaut down in the Y axis.
+			// Create a force pushing the astronaut down in the Y axis
 			acceleration.y = 40;
-			
 			maxVelocity.x = Constants.SCREEN_MAX_VELOCITY;
+			
+			collectedBatteries = 0;
 		}
 
 		override public function update():void 

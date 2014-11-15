@@ -60,6 +60,18 @@ package
 		}
 		
 		/**
+		 * This method is called everytime an astronaut touches a flying battery.
+		 * 
+		 * @param	astronaut 	the astronaut that touched the battery.
+		 * @param	battery		the battery that was touched by the astronaut.
+		 */
+		private function onAstronautTouchesBattery(astronaut :Astronaut, battery :Battery) :void
+		{
+			astronaut.collectedBatteries++;
+			battery.kill();
+		}
+		
+		/**
 		 * This method is called by Flixel every game update. Usually the game logic
 		 * (what collides with what, etc) is placed here.
 		 */
@@ -70,6 +82,10 @@ package
 			
 			// Make astronauts and obstacles collide, so they will not move through each other.
 			FlxG.collide(astronauts, obstacles);
+			
+			// Check if any astronaut overlap any of the batteries. If that happen, the 
+			// method "onAstronautTouchesBattery" will be invoked.
+			FlxG.overlap(astronauts, batteries, onAstronautTouchesBattery);
 			
 			// Decrease the battery counter.
 			batteryTimer -= FlxG.elapsed;
