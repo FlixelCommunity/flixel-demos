@@ -12,6 +12,9 @@ package
 	{
 		private var obstacles :FlxGroup; 		// list of obstacles
 		private var astronauts :FlxGroup;		// list of astronauts
+		private var batteries :FlxGroup;		// list of batteries
+		
+		private var batteryTimer :Number;		// a counter to control the addition of batteries to the screen.
 		
 		/**
 		 * This method is called by Flixel to initialize the state.
@@ -22,10 +25,11 @@ package
 		{
 			var i:uint;
 			
-			// Initialize the group of obstacles and astronauts.
+			// Initialize the group of obstacles, astronauts and batteries.
 			// They will be empty until something is added using add().
 			obstacles = new FlxGroup();
 			astronauts = new FlxGroup();
+			batteries = new FlxGroup();
 
 			// Create the obstacles, adding each one to the "obstacles" group.
 			for (i = 0; i < Constants.MAX_OBSTACLES; i++) {
@@ -38,12 +42,21 @@ package
 				var a:Astronaut = new Astronaut();
 				astronauts.add(a);
 			}
+			
+			// Create the batteries, adding each one to the "batteries" group.
+			for (i = 0; i < Constants.MAX_BATTERIES; i++) {
+				var c:Battery = new Battery();
+				batteries.add(c);
+			}
 
+			batteryTimer = Constants.BATTERY_ADD_INTERVAL;
+			
 			// Add both groups obstacles and astronauts to the screen.
 			// When Flixel finds a group in the display list, it will render
 			// all its elements like they were added to the screen separately.
 			add(obstacles);
 			add(astronauts);
+			add(batteries);
 		}
 		
 		/**
@@ -57,6 +70,21 @@ package
 			
 			// Make astronauts and obstacles collide, so they will not move through each other.
 			FlxG.collide(astronauts, obstacles);
+			
+			// Decrease the battery counter.
+			batteryTimer -= FlxG.elapsed;
+			
+			// If the battery counter reached zero, it's time to add a new battery.
+			if (batteryTimer <= 0) {
+				var b:Battery = batteries.getFirstAvailable() as Battery;
+				
+				if (b != null) {
+					b.reset(FlxG.width - 2, FlxG.random.float(10, FlxG.height * 0.9));
+				}
+				
+				// Start counting again.
+				batteryTimer = Constants.BATTERY_ADD_INTERVAL;
+			}
 		}
 	}
 }
